@@ -1,45 +1,24 @@
 import './Canvas.css'
 
-export function Canvas({ rows, columns, startY, startX }) {
+export function Canvas({ snake, matrix, setMatrix }) {
 
-    const matrix = createMatrix(rows, columns, startY, startX)
     const grid = createGrid(matrix)
 
     return (
         <div id='containerCanvas'>
-            <div id='canvas' 
-            style={{
-                display: 'grid',
-                gridTemplateColumns: `repeat(${columns}, 10px)`,
-                border:"solid 1px"
-            }}>
+            <div id='canvas'
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: `repeat(${matrix[0].length}, 10px)`,
+                    border: "solid 1px"
+                }}>
                 {grid}
             </div>
         </div>
     );
 }
 
-function createMatrix(rows, columns, startY, startX ){
-    const m = [];
-
-    for (let row = 0; row < rows; row++) {
-        m[row] = [];
-        for (let column = 0; column < columns; column++) {
-            if (row === startY && column === startX) {
-                m[startY][startX] = 1;
-                m[startY - 1][startX] = 1;
-                m[startY - 2][startX] = 1;
-            } else {
-                m[row][column] = 0;
-            }
-        }
-    }
-
-    return m
-}
-
-
-function createGrid(matrix){
+function createGrid(matrix) {
 
     const g = [];
 
