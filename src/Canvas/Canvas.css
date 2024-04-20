@@ -1,0 +1,19 @@
+#containerCanvas{
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.square {
+    width: 100%;
+    padding-top: 100%;
+  }
+  
+  .filled {
+    background-color: #007bff; 
+  }
+  
+  .empty {
+    background-color: #cccc;
+}
+  

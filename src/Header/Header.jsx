@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 export function Header(){
     return (
-        <div>
+        <div id='header'>
             <Navigation/>
         </div>
     )
