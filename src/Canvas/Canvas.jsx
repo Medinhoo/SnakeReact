@@ -1,40 +1,9 @@
 import './Canvas.css'
 
 export function Canvas({ rows, columns, startY, startX }) {
-    const matrix = [];
 
-    for (let row = 0; row < rows; row++) {
-        matrix[row] = [];
-        for (let column = 0; column < columns; column++) {
-            if (row === startY && column === startX) {
-                matrix[startY][startX] = 1;
-                matrix[startY - 1][startX] = 1;
-                matrix[startY - 2][startX] = 1;
-            } else {
-                matrix[row][column] = 0;
-            }
-        }
-    }
-
-    const grid = [];
-
-    for (let colIndex = 0; colIndex < columns; colIndex++) {
-        const columnDiv = [];
-        for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
-            columnDiv.push(
-                <div
-                    id={`cell-${rowIndex}-${colIndex}`}
-                    key={`cell-${rowIndex}-${colIndex}`}
-                    className={matrix[rowIndex][colIndex] === 1 ? 'square filled' : 'square empty'}>
-                </div>
-            );
-        }
-        grid.push(
-            <div id={`col-${colIndex}`} key={`col-${colIndex}`}>
-                {columnDiv}
-            </div>
-        );
-    }
+    const matrix = createMatrix(rows, columns, startY, startX)
+    const grid = createGrid(matrix)
 
     return (
         <div id='containerCanvas'>
@@ -48,5 +17,49 @@ export function Canvas({ rows, columns, startY, startX }) {
             </div>
         </div>
     );
+}
 
+function createMatrix(rows, columns, startY, startX ){
+    const m = [];
+
+    for (let row = 0; row < rows; row++) {
+        m[row] = [];
+        for (let column = 0; column < columns; column++) {
+            if (row === startY && column === startX) {
+                m[startY][startX] = 1;
+                m[startY - 1][startX] = 1;
+                m[startY - 2][startX] = 1;
+            } else {
+                m[row][column] = 0;
+            }
+        }
+    }
+
+    return m
+}
+
+
+function createGrid(matrix){
+
+    const g = [];
+
+    for (let column = 0; column < matrix[0].length; column++) {
+        const columnDiv = [];
+        for (let row = 0; row < matrix.length; row++) {
+            columnDiv.push(
+                <div
+                    id={`cell-${row}-${column}`}
+                    key={`cell-${row}-${column}`}
+                    className={matrix[row][column] === 1 ? 'square filled' : 'square empty'}>
+                </div>
+            );
+        }
+        g.push(
+            <div id={`col-${column}`} key={`col-${column}`}>
+                {columnDiv}
+            </div>
+        );
+    }
+
+    return g;
 }
