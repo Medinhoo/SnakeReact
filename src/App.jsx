@@ -1,7 +1,13 @@
+import { Header } from "./Header/Header"
+import './index.css'
 
 function App() {
 
-  return (<div>Bonjour les gens</div>
+  return (
+  <div>
+    <Header/>
+    <p>Bonjour les gens</p>
+  </div>
   )
 }
 
