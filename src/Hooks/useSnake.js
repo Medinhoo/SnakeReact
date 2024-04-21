@@ -31,7 +31,7 @@ export const useSnake = () => {
             setPause(p => false)
             setDirection('RIGHT');
         }
-        else if (event.key === ' ') {
+        else if (event.key === 'p') {
             setGame(g => !g)
             setPause(p => !p)
         }
