@@ -12,22 +12,22 @@ const App = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowUp' && direction !== 'DOWN'){
-      setDirection('UP')
       setGame(true)
+      setDirection('UP')
     }
     else if (event.key === 'ArrowDown' && direction !== 'UP'){
-      setDirection('DOWN');
       setGame(true)
+      setDirection('DOWN');
     }
     else if (event.key === 'ArrowLeft' && direction !== 'RIGHT') {
-      setDirection('LEFT');
       setGame(true)
+      setDirection('LEFT');
     }
     else if (event.key === 'ArrowRight' && direction !== 'LEFT') {
-      setDirection('RIGHT');
       setGame(true)
+      setDirection('RIGHT');
     }
-    else
+    else if (event.key === ' ') setGame(g => !g)
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const App = () => {
 
   useEffect(() => {
 
-    let moveSnake = null;
+    let moveSnake;
 
     if(game){
       moveSnake = setInterval(() => {
