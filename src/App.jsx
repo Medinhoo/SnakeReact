@@ -7,13 +7,27 @@ const App = () => {
 
   const [matrix, setMatrix] = useState(Array(40).fill(Array(40).fill(0)));
   const [snake, setSnake] = useState([{ row: 10, col: 10 }]);
-  const [direction, setDirection] = useState('DOWN');
+  const [direction, setDirection] = useState();
+  const [game, setGame] = useState(false)
 
   const handleKeyDown = (event) => {
-    if (event.key === 'ArrowUp' && direction !== 'DOWN') setDirection('UP');
-    else if (event.key === 'ArrowDown' && direction !== 'UP') setDirection('DOWN');
-    else if (event.key === 'ArrowLeft' && direction !== 'RIGHT') setDirection('LEFT');
-    else if (event.key === 'ArrowRight' && direction !== 'LEFT') setDirection('RIGHT');
+    if (event.key === 'ArrowUp' && direction !== 'DOWN'){
+      setDirection('UP')
+      setGame(true)
+    }
+    else if (event.key === 'ArrowDown' && direction !== 'UP'){
+      setDirection('DOWN');
+      setGame(true)
+    }
+    else if (event.key === 'ArrowLeft' && direction !== 'RIGHT') {
+      setDirection('LEFT');
+      setGame(true)
+    }
+    else if (event.key === 'ArrowRight' && direction !== 'LEFT') {
+      setDirection('RIGHT');
+      setGame(true)
+    }
+    else
   };
 
   useEffect(() => {
@@ -24,52 +38,55 @@ const App = () => {
   }, [direction]);
 
   useEffect(() => {
-    const moveSnake = setInterval(() => {
-      setMatrix(m => {
-        let newSnake = [...snake];
-        let head = { ...newSnake[0] };
-        switch (direction) {
-          case 'UP':
-            head.row -= 1;
-            break;
-          case 'DOWN':
-            head.row += 1;
-            break;
-          case 'LEFT':
-            head.col -= 1;
-            break;
-          case 'RIGHT':
-            head.col += 1;
-            break;
-          default:
-            break;
-        }
-        newSnake.unshift(head);
-        const tail = newSnake.pop();
-        setSnake(newSnake);
 
-        return m.map((rowArray, rowIndex) => {
-          return rowArray.map((cell, colIndex) => {
-            
-            if (rowIndex === head.row && colIndex === head.col) {
-              if(m[head.row][head.col] === 2){
-                snake.push({row: rowIndex, col: colIndex})
+    let moveSnake = null;
+
+    if(game){
+      moveSnake = setInterval(() => {
+        setMatrix(m => {
+          let newSnake = [...snake];
+          let head = { ...newSnake[0] };
+          switch (direction) {
+            case 'UP':
+              head.row -= 1;
+              break;
+            case 'DOWN':
+              head.row += 1;
+              break;
+            case 'LEFT':
+              head.col -= 1;
+              break;
+            case 'RIGHT':
+              head.col += 1;
+              break;
+            default:
+              break;
+          }
+          newSnake.unshift(head);
+          const tail = newSnake.pop();
+          setSnake(newSnake);
+  
+          return m.map((rowArray, rowIndex) => {
+            return rowArray.map((cell, colIndex) => {
+              
+              if (rowIndex === head.row && colIndex === head.col) {
+                if(m[head.row][head.col] === 2){
+                  snake.push({row: rowIndex, col: colIndex})
+                }
+                return 1;
               }
-              return 1;
-            }
-            else if (tail.row === rowIndex && tail.col === colIndex) {
-              return 0;
-            }
-            return cell;
+              else if (tail.row === rowIndex && tail.col === colIndex) {
+                return 0;
+              }
+              return cell;
+            });
           });
         });
-
-
-      });
-    }, 100);
+      }, 100);
+    }
 
     return () => clearInterval(moveSnake);
-  }, [direction, snake]);
+  }, [game, direction, snake]);
 
   useEffect(()=>{
     createFruit(matrix)
