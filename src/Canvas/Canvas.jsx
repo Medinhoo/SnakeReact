@@ -1,6 +1,6 @@
 import './Canvas.css'
 
-export function Canvas({ snake, matrix, setMatrix }) {
+export function Canvas({ matrix }) {
 
     const grid = createGrid(matrix)
 
@@ -29,7 +29,12 @@ function createGrid(matrix) {
                 <div
                     id={`cell-${row}-${column}`}
                     key={`cell-${row}-${column}`}
-                    className={matrix[row][column] === 1 ? 'square filled' : 'square empty'}>
+                    className={
+                        matrix[row][column] === 1 ? 'square filled' :
+                        matrix[row][column] === 0 ? 'square empty' :
+                        'square fruit'
+                    }
+                >
                 </div>
             );
         }
