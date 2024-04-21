@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 
 const App = () => {
 
-  const { matrix, game, lose, pause, handleKeyDown, restartGame } = useSnake()
+  const { matrix, game, lose, pause, score, handleKeyDown, restartGame } = useSnake()
   const [userName, setUserName] = useState('')
 
   const handleUserName = (e)=> {
@@ -25,9 +25,10 @@ const App = () => {
   return (
     <>
       <Header />
-      <Input label='Username :' value={userName} onChange={setUserName} />
       <ForegroundPage content={loadingMessage} using={'firstLoad'}/>
       {!game && pause && <ForegroundPage content={pauseMessage} using={'pause'}/>}
+      <p>{`Your score : ${score}`}</p>
+      <Input label='Username :' value={userName} onChange={setUserName} />
       <Canvas matrix={matrix} />
       <Button onClick={restartGame} content={'Restart'} />
     </>

@@ -8,6 +8,7 @@ export const useSnake = () => {
     const [game, setGame] = useState(false)
     const [lose, setLose] = useState(false)
     const [pause, setPause] = useState(false)
+    const [score, setScore] = useState(0)
 
     const handleKeyDown = (event) => {
         if (event.key === 'ArrowUp' && direction !== 'DOWN') {
@@ -30,10 +31,10 @@ export const useSnake = () => {
             setPause(p => false)
             setDirection('RIGHT');
         }
-        else if (event.key === ' '){
+        else if (event.key === ' ') {
             setGame(g => !g)
             setPause(p => !p)
-        } 
+        }
     };
 
     useEffect(() => {
@@ -48,28 +49,30 @@ export const useSnake = () => {
 
         if (game) {
             moveSnake = setInterval(() => {
+
                 setMatrix(m => {
+
                     let newSnake = [...snake];
-                    let head = { ...newSnake[0] };
-                    switch (direction) {
-                        case 'UP':
-                            head.row -= 1;
-                            break;
-                        case 'DOWN':
-                            head.row += 1;
-                            break;
-                        case 'LEFT':
-                            head.col -= 1;
-                            break;
-                        case 'RIGHT':
-                            head.col += 1;
-                            break;
-                        default:
-                            break;
-                    }
-                    newSnake.unshift(head);
-                    const tail = newSnake.pop();
-                    setSnake(newSnake);
+                let head = { ...newSnake[0] };
+                switch (direction) {
+                    case 'UP':
+                        head.row -= 1;
+                        break;
+                    case 'DOWN':
+                        head.row += 1;
+                        break;
+                    case 'LEFT':
+                        head.col -= 1;
+                        break;
+                    case 'RIGHT':
+                        head.col += 1;
+                        break;
+                    default:
+                        break;
+                }
+                newSnake.unshift(head);
+                const tail = newSnake.pop();
+                setSnake(newSnake);
 
                     return m.map((rowArray, rowIndex) => {
                         return rowArray.map((cell, colIndex) => {
@@ -92,7 +95,8 @@ export const useSnake = () => {
 
                                 //Make the snake bigger if he eats a fruit
                                 if (m[head.row][head.col] === 2) {
-                                    snake.push({ row: tail.row, col: tail.col })
+                                    setSnake(snake => [...snake, { row: tail.row, col: tail.col }]);
+                                    setScore(s => s + 1)
                                 }
                                 return 1;
                             }
@@ -145,15 +149,16 @@ export const useSnake = () => {
         }
     }
 
-    function restartGame(){
+    function restartGame() {
         setLose(l => true)
-      }
+    }
 
     return {
         matrix,
         game,
         lose,
         pause,
+        score,
         handleKeyDown,
         restartGame
     }

@@ -9,7 +9,8 @@ export const Input = ({ label, value, onChange }) => {
                 type="text"
                 onChange={(e) => onChange(e.target.value)}
                 value={value} />
-                {value.length > 0 && <p className="pt-3 m-0">Have a nice game {value}</p> }
+                {value.length > 0 && 
+                <p className="pt-3 m-0">Have a nice game {value} !!</p> }
 
         </div>
 
