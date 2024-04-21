@@ -3,8 +3,6 @@ import './ForegroundPage.css'
 
 export const ForegroundPage = ({content, using}) => {
 
-    console.log(using)
-
     let classStyle= '';
 
     switch(using){
