@@ -69,7 +69,7 @@ const App = () => {
 
           return m.map((rowArray, rowIndex) => {
             return rowArray.map((cell, colIndex) => {
-              if (head.row < 0 || head.col < 0) {
+              if (head.row < 0 || head.col < 0 || head.row >= m.length || head.col >= m.length) {
                 setLose(l => true)
               }
               if (rowIndex === head.row && colIndex === head.col) {
@@ -103,7 +103,8 @@ const App = () => {
       setDirection(null); // Réinitialiser la direction
       setGame(false); // Mettre fin au jeu
       setLose(false); // Réinitialiser la variable lose    
-    }
+      createFruit(matrix)
+     }
   }, [lose]);
 
 
