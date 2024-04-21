@@ -9,13 +9,14 @@ const App = () => {
   const [snake, setSnake] = useState([{ row: 10, col: 10 }]);
   const [direction, setDirection] = useState();
   const [game, setGame] = useState(false)
+  const [lose, setLose] = useState(false)
 
   const handleKeyDown = (event) => {
-    if (event.key === 'ArrowUp' && direction !== 'DOWN'){
+    if (event.key === 'ArrowUp' && direction !== 'DOWN') {
       setGame(true)
       setDirection('UP')
     }
-    else if (event.key === 'ArrowDown' && direction !== 'UP'){
+    else if (event.key === 'ArrowDown' && direction !== 'UP') {
       setGame(true)
       setDirection('DOWN');
     }
@@ -41,7 +42,7 @@ const App = () => {
 
     let moveSnake;
 
-    if(game){
+    if (game) {
       moveSnake = setInterval(() => {
         setMatrix(m => {
           let newSnake = [...snake];
@@ -65,13 +66,16 @@ const App = () => {
           newSnake.unshift(head);
           const tail = newSnake.pop();
           setSnake(newSnake);
-  
+
           return m.map((rowArray, rowIndex) => {
             return rowArray.map((cell, colIndex) => {
-              
+              if (head.row < 0 || head.col < 0) {
+                setLose(l => true)
+              }
               if (rowIndex === head.row && colIndex === head.col) {
-                if(m[head.row][head.col] === 2){
-                  snake.push({row: rowIndex, col: colIndex})
+                //Make the snake bigger if he eats a fruit
+                if (m[head.row][head.col] === 2) {
+                  snake.push({ row: rowIndex, col: colIndex })
                 }
                 return 1;
               }
@@ -88,16 +92,26 @@ const App = () => {
     return () => clearInterval(moveSnake);
   }, [game, direction, snake]);
 
-  useEffect(()=>{
+  useEffect(() => {
     createFruit(matrix)
   }, [snake.length])
 
+  useEffect(() => {
+    if (lose) {
+      setMatrix(Array(40).fill(Array(40).fill(0))); // Réinitialiser la matrice
+      setSnake([{ row: 10, col: 10 }]); // Réinitialiser la position du serpent
+      setDirection(null); // Réinitialiser la direction
+      setGame(false); // Mettre fin au jeu
+      setLose(false); // Réinitialiser la variable lose    
+    }
+  }, [lose]);
 
-  function createFruit(matrix){
+
+  function createFruit(matrix) {
     const randomfruitX = Math.floor(Math.random() * matrix.length)
     const randomfruitY = Math.floor(Math.random() * matrix.length)
 
-    if(matrix[randomfruitY][randomfruitX] != 1){
+    if (matrix[randomfruitY][randomfruitX] != 1) {
       setMatrix(m => {
         return m.map((rowArray, rowIndex) => {
           return rowArray.map((cell, colIndex) => {
