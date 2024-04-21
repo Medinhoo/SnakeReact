@@ -1,5 +1,4 @@
-import { Canvas } from "./Components/Canvas/Canvas"
-import { Button } from "./Components/Button/Button"
+import { Game } from "./Game"
 import { ForegroundPage } from "./Components/ForegroundPage/ForegroundPage"
 import { Player } from "./Player"
 import { useSnake } from "./Hooks/useSnake"
@@ -21,8 +20,7 @@ export const Body = () => {
             <ForegroundPage content={loadingMessage} using={'firstLoad'} />
             {!game && pause && <ForegroundPage content={pauseMessage} using={'pause'} />}
             <Player score={score} value={userName} onChange ={setUserName}/>
-            <Canvas matrix={matrix} />
-            <Button onClick={restartGame} content={'Restart'} />
+            <Game matrix={matrix} onClick={restartGame}/>
         </>
     )
 }
