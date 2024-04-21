@@ -1,5 +1,6 @@
 import { Header } from "./Header/Header"
 import { Canvas } from "./Canvas/Canvas"
+import { Button } from "./Button/Button"
 import './index.css'
 import { useEffect, useState } from "react"
 
@@ -69,25 +70,30 @@ const App = () => {
 
           return m.map((rowArray, rowIndex) => {
             return rowArray.map((cell, colIndex) => {
+
               //Losing if the snake hits the wall
               if (head.row < 0 || head.col < 0 || head.row >= m.length || head.col >= m.length) {
                 setLose(l => true)
               }
+
               //checking the head of the snake
               if (rowIndex === head.row && colIndex === head.col) {
+
                 //checking if the snake is eating himself
-                for(let i = 1; i < snake.length; i++){
+                for (let i = 1; i < snake.length; i++) {
                   const body = snake[i]
-                  if(body.row === head.row && body.col === head.col){
+                  if (body.row === head.row && body.col === head.col) {
                     setLose(l => true)
                   }
                 }
+
                 //Make the snake bigger if he eats a fruit
                 if (m[head.row][head.col] === 2) {
                   snake.push({ row: tail.row, col: tail.col })
                 }
                 return 1;
               }
+
               else if (tail.row === rowIndex && tail.col === colIndex) {
                 return 0;
               }
@@ -113,7 +119,7 @@ const App = () => {
       setGame(false); // Mettre fin au jeu
       setLose(false); // Réinitialiser le state lose    
       createFruit(matrix)
-     }
+    }
   }, [lose]);
 
 
@@ -136,10 +142,15 @@ const App = () => {
     }
   }
 
+  function restartGame(){
+    setLose(l => true)
+  }
+
   return (
     <>
       <Header />
       <Canvas matrix={matrix} />
+      <Button onClick={restartGame} content={'Restart'}/>
     </>
   );
 }
