@@ -69,13 +69,22 @@ const App = () => {
 
           return m.map((rowArray, rowIndex) => {
             return rowArray.map((cell, colIndex) => {
+              //Losing if the snake hits the wall
               if (head.row < 0 || head.col < 0 || head.row >= m.length || head.col >= m.length) {
                 setLose(l => true)
               }
+              //checking the head of the snake
               if (rowIndex === head.row && colIndex === head.col) {
+                //checking if the snake is eating himself
+                for(let i = 1; i < snake.length; i++){
+                  const body = snake[i]
+                  if(body.row === head.row && body.col === head.col){
+                    setLose(l => true)
+                  }
+                }
                 //Make the snake bigger if he eats a fruit
                 if (m[head.row][head.col] === 2) {
-                  snake.push({ row: rowIndex, col: colIndex })
+                  snake.push({ row: tail.row, col: tail.col })
                 }
                 return 1;
               }
@@ -102,7 +111,7 @@ const App = () => {
       setSnake([{ row: 10, col: 10 }]); // Réinitialiser la position du serpent
       setDirection(null); // Réinitialiser la direction
       setGame(false); // Mettre fin au jeu
-      setLose(false); // Réinitialiser la variable lose    
+      setLose(false); // Réinitialiser le state lose    
       createFruit(matrix)
      }
   }, [lose]);
