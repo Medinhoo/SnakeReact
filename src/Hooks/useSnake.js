@@ -7,25 +7,33 @@ export const useSnake = () => {
     const [direction, setDirection] = useState();
     const [game, setGame] = useState(false)
     const [lose, setLose] = useState(false)
+    const [pause, setPause] = useState(false)
 
     const handleKeyDown = (event) => {
         if (event.key === 'ArrowUp' && direction !== 'DOWN') {
             setGame(true)
+            setPause(p => false)
             setDirection('UP')
         }
         else if (event.key === 'ArrowDown' && direction !== 'UP') {
             setGame(true)
+            setPause(p => false)
             setDirection('DOWN');
         }
         else if (event.key === 'ArrowLeft' && direction !== 'RIGHT') {
             setGame(true)
+            setPause(p => false)
             setDirection('LEFT');
         }
         else if (event.key === 'ArrowRight' && direction !== 'LEFT') {
             setGame(true)
+            setPause(p => false)
             setDirection('RIGHT');
         }
-        else if (event.key === ' ') setGame(g => !g)
+        else if (event.key === ' '){
+            setGame(g => !g)
+            setPause(p => !p)
+        } 
     };
 
     useEffect(() => {
@@ -145,6 +153,7 @@ export const useSnake = () => {
         matrix,
         game,
         lose,
+        pause,
         handleKeyDown,
         restartGame
     }

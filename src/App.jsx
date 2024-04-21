@@ -1,15 +1,14 @@
 import { Header } from "./Components/Header/Header"
 import { Canvas } from "./Components/Canvas/Canvas"
 import { Button } from "./Components/Button/Button"
-import { LoadingPage } from "./Components/LoadingPage/LoadingPage"
+import { ForegroundPage } from "./Components/ForegroundPage/ForegroundPage"
 import './index.css'
 import { useSnake } from "./Hooks/useSnake"
 import { useEffect, useState } from "react"
 
 const App = () => {
 
-  const { matrix, game, lose, handleKeyDown, restartGame } = useSnake()
-  const [pause, setPause] = useState(false)
+  const { matrix, game, lose, pause, handleKeyDown, restartGame } = useSnake()
 
   const loadingMessage = `<h2>Press the arrowkeys to start the game</h2> 
                           <br />
@@ -20,8 +19,8 @@ const App = () => {
   return (
     <>
       <Header />
-      <LoadingPage content={loadingMessage} />
-      {!game && pause && <LoadingPage content={pauseMessage} />}
+      <ForegroundPage content={loadingMessage} using={'firstLoad'}/>
+      {!game && pause && <ForegroundPage content={pauseMessage} using={'pause'}/>}
       <Canvas matrix={matrix} />
       <Button onClick={restartGame} content={'Restart'} />
     </>
