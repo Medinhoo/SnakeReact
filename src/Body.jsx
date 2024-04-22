@@ -7,8 +7,7 @@ import { useState } from "react"
 export const Body = () => {
 
     const { matrix, game, lose, pause, score, handleKeyDown, restartGame } = useSnake()
-    const [userName, setUserName] = useState('')
-  
+      
     const loadingMessage = `<h2>Press an arrowkey to start the game</h2> 
                             <br />
                             <h2>Press P to pause the game </h2>`
@@ -19,7 +18,6 @@ export const Body = () => {
         <>
             <ForegroundPage content={loadingMessage} using={'firstLoad'} />
             {!game && pause && <ForegroundPage content={pauseMessage} using={'pause'} />}
-            <Player score={score} value={userName} onChange ={setUserName}/>
             <Game matrix={matrix} onClick={restartGame}/>
         </>
     )

@@ -2,3 +2,8 @@
     height: 80px;
     width: 80px;
 }
+
+.link-no-style {
+    color: inherit;
+    text-decoration: none;
+  }
