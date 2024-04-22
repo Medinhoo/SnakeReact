@@ -26,8 +26,8 @@ function Navigation(){
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link className="link-no-style pb-2" to="/">Home</Link>
-            <Link className="link-no-style" to="/Play">Play</Link>
+            <Nav.Link><Link className="link-no-style pb-2" to="/">Home</Link></Nav.Link>
+            <Nav.Link><Link className="link-no-style" to="/Play">Play</Link></Nav.Link>
             <NavDropdown title="More" id="basic-nav-dropdown">
               <NavDropdown.Item> <Link className="link-no-style" to="/Rules">Rules</Link></NavDropdown.Item>
               <NavDropdown.Item> <Link className="link-no-style" to="/Test">Test</Link></NavDropdown.Item>
