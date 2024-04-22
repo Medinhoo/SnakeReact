@@ -108,7 +108,7 @@ export const useSnake = () => {
                         });
                     });
                 });
-            }, 100);
+            }, 50);
         }
 
         return () => clearInterval(moveSnake);
