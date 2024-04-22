@@ -1,23 +1,21 @@
-import { Input } from "./Components/Input/Input"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Input } from './Components/Input/Input'; // Assurez-vous d'importer correctement le composant Input
 
-export const Player = ({ score, value, onChange }) => {
-    return (
-        <>
-            <div className="score d-flex flex-column justify-content-center">
-                <div className="d-flex justify-content-center align-items-end">
-                <p className="m-0 p-2 border">
-                    {`Your score : ${score}`}
-                </p>
-                </div>
-                
-                <Input 
-                label='Username :' 
-                value={value} 
-                onChange={onChange} 
-                />
-            </div>
-        </>
-
-    )
-
-}
+export const Player = ({ value, onChange }) => {
+  return (
+    <div style={{ height: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div className="score d-flex flex-column justify-content-center align-items-center">
+        <Input
+          label='Username :'
+          placeholder='Enter your username :'
+          value={value}
+          onChange={onChange}
+        />
+        <Link className="link-no-style" to="/Play">
+          <button className="btn btn-primary btn-lg mt-4">Start a game</button>
+        </Link>
+      </div>
+    </div>
+  );
+};

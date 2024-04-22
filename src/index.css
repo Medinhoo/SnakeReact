@@ -11,3 +11,8 @@ body{
 .score p{
     border-radius: 10px;
 }
+
+.link-no-style {
+    color: inherit;
+    text-decoration: none;
+  }

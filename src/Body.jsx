@@ -1,8 +1,6 @@
 import { Game } from "./Game"
 import { ForegroundPage } from "./Components/ForegroundPage/ForegroundPage"
-import { Player } from "./Player"
 import { useSnake } from "./Hooks/useSnake"
-import { useState } from "react"
 
 export const Body = () => {
 
