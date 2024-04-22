@@ -1,4 +1,5 @@
-
+import { Rules } from "./Rules"
+import { Contact } from "./Contact"
 import { Header } from "./Components/Header/Header"
 import { Player } from "./Player"
 import { BodyPlay } from "./BodyPlay"
@@ -35,7 +36,18 @@ const App = () => {
     {
       path: "/Rules",
       element: (
-        <div>coucou</div>
+        <>
+          <Header />
+          <Rules/>
+        </>)
+    },
+    {
+      path: "/Contact",
+      element: (
+        <>
+          <Header />
+          <Contact/>
+        </>
       )
     },
   ])
