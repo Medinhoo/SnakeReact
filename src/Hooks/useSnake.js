@@ -126,6 +126,7 @@ export const useSnake = () => {
             setGame(false); // Mettre fin au jeu
             setLose(false); // Réinitialiser le state lose    
             createFruit(matrix)
+            setScore(s => 0)
         }
     }, [lose]);
 
@@ -159,6 +160,8 @@ export const useSnake = () => {
         lose,
         pause,
         score,
+        snake,
+        setSnake,
         handleKeyDown,
         restartGame
     }

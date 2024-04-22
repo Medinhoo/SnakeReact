@@ -1,9 +1,9 @@
 
 import { Header } from "./Components/Header/Header"
 import { Player } from "./Player"
-import { Body } from "./Body"
+import { BodyPlay } from "./BodyPlay"
 import './index.css'
-import { RouterProvider, Link,  createBrowserRouter } from "react-router-dom"
+import { RouterProvider, Link, createBrowserRouter } from "react-router-dom"
 import { useState } from "react"
 import { useSnake } from "./Hooks/useSnake"
 
@@ -27,15 +27,15 @@ const App = () => {
       path: "/Play",
       element: (
         <>
-          <Header/>
-          <Body/>
+          <Header />
+          <BodyPlay userName={userName} />
         </>
       )
     },
     {
       path: "/Rules",
-      element: (<div>coucou</div>
-
+      element: (
+        <div>coucou</div>
       )
     },
   ])

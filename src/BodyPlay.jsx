@@ -2,7 +2,7 @@ import { Game } from "./Game"
 import { ForegroundPage } from "./Components/ForegroundPage/ForegroundPage"
 import { useSnake } from "./Hooks/useSnake"
 
-export const Body = () => {
+export const BodyPlay = ({userName}) => {
 
     const { matrix, game, lose, pause, score, handleKeyDown, restartGame } = useSnake()
       
@@ -16,7 +16,7 @@ export const Body = () => {
         <>
             <ForegroundPage content={loadingMessage} using={'firstLoad'} />
             {!game && pause && <ForegroundPage content={pauseMessage} using={'pause'} />}
-            <Game matrix={matrix} onClick={restartGame}/>
+            <Game userName={userName} matrix={matrix} onClick={restartGame}/>
         </>
     )
 }
